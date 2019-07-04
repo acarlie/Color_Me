@@ -1,0 +1,13 @@
+span.letterBox{
+    display: inline-block;
+    width: 2em;
+    height: 2em;
+    text-align: center;
+    line-height: 2em;
+    margin: 0 1em;
+    border-bottom: 2px solid #000;
+}
+
+.letter{
+    display: none;
+}
