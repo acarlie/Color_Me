@@ -1,14 +1,35 @@
+*{
+    box-sizing: border-box;
+}
+
+body{
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    text-align: center;
+}
+
+h1, h2, h3, h4, h5, h6{
+    font-family: 'Montserrat', sans-serif;
+}
+
+#container{
+    margin-top: 5em;
+}
+
 span.letterBox{
     display: inline-block;
-    width: 2em;
-    height: 2em;
+    width: 3em;
+    height: 3em;
     text-align: center;
-    line-height: 2em;
-    margin: 0 1em;
-    border-bottom: 2px solid #000;
+    line-height: 3em;
+    margin: 0 .5em;
+    border-bottom: 1.5px solid #000;
 }
 
 .letter{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2em;
+    font-weight: 300;
     visibility: hidden;
     opacity: 0;
     transition: visibility 0s, opacity 0.5s linear;
