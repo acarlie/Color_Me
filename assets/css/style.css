@@ -18,7 +18,7 @@ h1, h2, h3, h4, h5, h6{
 
 span.letterBox{
     display: inline-block;
-    width: 3em;
+    width: 2.5em;
     height: 3em;
     text-align: center;
     line-height: 3em;
@@ -32,7 +32,7 @@ span.letterBox{
     font-weight: 300;
     visibility: hidden;
     opacity: 0;
-    transition: visibility 0s, opacity 0.5s linear;
+    /* transition: visibility 0s, opacity 0.5s linear; */
 }
 
 .letter.visible{
