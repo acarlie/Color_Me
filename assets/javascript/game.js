@@ -1,4 +1,3 @@
-
 //colors obj
 var game = {
     body: document.getElementsByTagName('body')[0],
@@ -42,43 +41,33 @@ var game = {
         var colorHex = this.colorHex[random]; 
         this.body.style.backgroundColor = colorHex;
     },
-    init(random){
-        this.randomWord = this.color[random];
-        this.randomWordLength = this.color[random].length;
+    reset(randomNum){
+        this.guesses = 13;
+        this.guessCont.innerHTML = game.guesses;
+        this.container.innerHTML = "";
+
+        this.random = randomNum;
+        this.randomWord = this.color[randomNum];
+        this.randomWordLength = this.color[randomNum].length;
         this.lettersArray = this.randomWord.split("", this.randomWordLength);
 
         this.letterBoxes(this.randomWordLength, this.lettersArray);
-        this.bgColor(random);
+        this.bgColor(randomNum);
     }
     
 }
 
-console.log(game.container.innerHTML.length + "this one");
-
-
-game.testButton.onclick = function(){
-    game.guesses = 13;
-    game.guessCont.innerHTML = game.guesses;
-    game.container.innerHTML = "";
-    game.random = Math.round(Math.random()*(game.color.length - 1));
-    game.init(game.random);
-    console.log(game.random);
-    console.log(game.randomWord);
-    console.log(game.lettersArray);
+window.onload = function(){
+    var randomNum = Math.round(Math.random()*(game.color.length - 1));
+    game.reset(randomNum);
 }
+
+//reset
+
 
 var keyCount = 0;
 
-//keypress
 document.onkeyup = function(e){
-
-    // keyCount += 1;
-
-    // if (keyCount === 1){
-    //     randomize();
-    // }
-    // console.log(lettersArray);
-
     var keyCode = e.keyCode;
     var key = String.fromCharCode(keyCode).toLowerCase();
     var keyIndex = game.lettersArray.indexOf(key);
@@ -103,8 +92,12 @@ document.onkeyup = function(e){
     
             //fix
             if((game.randomWordLength - 1) === visible){
-                wins += 1;
-                console.log('you have ' + wins + " wins!");
+                game.wins += 1;
+                console.log('you have ' + game.wins + " wins!");
+                game.winCont.innerHTML = game.wins;
+                var randomNum = Math.round(Math.random()*(game.color.length - 1));
+                game.reset(randomNum);
+
             }
     
         } else if (keyIndex < 0 && game.guesses > 0){
@@ -115,15 +108,12 @@ document.onkeyup = function(e){
             game.guessCont.innerHTML = game.guesses;
     
         } else if (game.guesses === 0){
-    
+            game.container.innerHTML = "game over";
             console.log('game over');
     
         } 
 
-        if((game.randomWordLength - 1) === visible){
-            wins += 1;
-            console.log('TEST TEST you have ' + wins + " wins!");
-        }
+
 
     } 
 
