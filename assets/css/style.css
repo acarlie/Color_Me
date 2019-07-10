@@ -5,8 +5,9 @@
 body{
     font-family: 'Roboto', sans-serif;
     font-size: 16px;
-    text-align: center;
     transition: background-color .5s linear;
+    color: rgba(255,255,255, .9);
+
 }
 
 h1, h2, h3, h4, h5, h6{
@@ -14,55 +15,57 @@ h1, h2, h3, h4, h5, h6{
 }
 
 #container{
-    margin-top: 5em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
 }
 
 span.letterBox{
     display: inline-block;
-    width: 2.5em;
-    height: 3em;
-    text-align: center;
-    line-height: 3em;
-    margin: 0 .5em;
-    border-bottom: 1.5px solid #000;
 }
 
-.letter{
-    font-family: 'Oswald', sans-serif;
-    font-size: 2em;
-    font-weight: 300;
-    visibility: hidden;
-    opacity: 0;
-    /* transition: visibility 0s, opacity 0.5s linear; */
+.letterBox:first-child .letter{
+    text-transform: capitalize;
 }
-
-.letter.visible{
-    visibility: visible;
-    opacity: 1;
-}
-
 
 h1{
+    margin-top: 0;
+    padding-top: 0;
     font-size: 5em;
     line-height: 2em;
     font-weight: 400;
 }
 
-h1.load{
+.inset{
     background-color: #666666;
     -webkit-background-clip: text;
     -moz-background-clip: text;
     background-clip: text;
     color: transparent;
-    height: 100vh;
     line-height: 80vh;
     text-shadow: rgba(255,255,255,0.5) 0px 2px 2px;
+    z-index: 1000;
+    text-align: center;
+}
+
+#loadText{
+    visibility: hidden;
+    height: 100vh;
+    transition: visibility 2s ease;
+}
+
+#loadText.fadeIn{
+    visibility: visible;
 }
 
 #heading{
     color: rgba(255,255,255, .9);
+    letter-spacing: 3px;
     /* text-shadow: 2px 4px 6px rgba(0,0,0,0.15); */
 }
+
+
 
 #loaderWrapper{
     background: #8e9eab;  /* fallback for old browsers */
@@ -80,4 +83,60 @@ h1.load{
 
 #loaderWrapper.loaded{
     height: 0;
+}
+
+#finalWrapper{
+    background: #8e9eab;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(45deg, #ECE9E6, #fff);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(45deg, #ECE9E6, #fff); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    height: 0vh;
+    width: 100vw;
+    z-index: 1000;
+    transition: all 2.5s ease;
+    overflow: hidden;
+}
+
+#finalWrapper.win{
+    height: 100vh;
+}
+
+#finalWrapper.lose{
+    height: 100vh;
+}
+
+#grid{
+    display: grid;
+    grid-template-areas: 
+        "guesses wins"
+        "guessed guessed";
+    border-radius: 1.5em;
+    text-align: left;
+}
+
+#grid p{
+    padding: 1em;
+}
+
+#guesses-cont{
+    grid-area: guesses;
+}
+
+#wins-cont{
+    grid-area: wins;
+}
+
+#wrong-cont{
+    grid-area: guessed;
+}
+
+@media only screen and (min-width: 768px){
+
+    #container{
+        width: 50%;
+        margin: 0 auto;
+    }
+
 }

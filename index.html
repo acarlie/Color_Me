@@ -4,27 +4,31 @@
     <meta charset="UTF-8"> 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link href="https://fonts.googleapis.com/css?family=Oswald|Roboto:400,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Oswald|Roboto:400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/reset.css">
     <link rel="stylesheet" href="assets/css/style.css">
     <title>Color Me</title>
 </head>
 <body>
-    <main id="container">
-        <div id="loaderWrapper">
-            <h1 id="loadText" class="load">Loading</h1>
-        </div>
-
-        <h1 id="heading">Color Me <span id="letters"></span>.</h1>
-        <h4>Press Any Key To Start</h4>
-        <p>Guesses Remaining: <span id="guesses"></span> | Wins: <span id="wins"></span></p>
-
-        <div id="gameContainer">
-
-        </div>   
-
-        <p>Guesses: <span id="wrong"></span></p>
+    <main id="container" class="flex">
+        <div>
+                <div id="loaderWrapper">
+                    <h1 id="loadText" class="inset">Loading</h1>
+                </div>
         
+                <div id="finalWrapper">
+        
+                </div>
+            
+                <h1 id="heading">Color Me <span id="gameContainer"></span>.</h1>
+            
+        
+                
+                <div id="grid">
+                    <p id="guesses-cont">Guesses Remaining: <span id="guesses"></span></p><p id="wins-cont">Wins: <span id="wins"></span></p>
+                    <p id="wrong-cont">Guesses: <span id="wrong"></span></p>
+                </div>
+        </div>
     </main>
 </body>
 <script type="text/javascript" src="assets/javascript/game.js"></script>
