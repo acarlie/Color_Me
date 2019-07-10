@@ -15,14 +15,21 @@ var game = {
     colorArray: [
         {name: "seafoam", colorMain: "#BDFFF3", colorTwo: "#4AC29A"}, 
         {name: "magenta", colorMain: "#f953c6", colorTwo: "#b91d73"}, 
-        {name: "lavender", colorMain: "#eaafc8", colorTwo: "#654ea3"}, 
+        {name: "lavender", colorMain: "#e1ceff", colorTwo: "#d277c8"}, 
         {name: "aqua", colorMain: "#A6FFCB", colorTwo: "#12D8FA"}, 
         {name: "purple", colorMain: "#E100FF", colorTwo: "#7F00FF"}, 
         {name: "lime", colorMain: "#DCE35B", colorTwo: "#45B649"},
         {name: "citrus", colorMain: "#FDC830", colorTwo: "#F37335"},
         {name: "maroon", colorMain: "#DA4453", colorTwo: "#89216B"},
         {name: "peach", colorMain: "#FFC371", colorTwo: "#FF5F6D"},
-        {name: "violet", colorMain: "#4776E6", colorTwo: "#8E54E9"}
+        {name: "violet", colorMain: "#a415e9", colorTwo: "#4522ad"},
+        {name: "crimson", colorMain: "#e9152d", colorTwo: "#ad2249"},
+        {name: "bubblegum", colorMain: "#ff8ed0", colorTwo:"#e45acb"},
+        {name: "rose", colorMain: "#ffaddd", colorTwo: "#ff6e8b"},
+        {name: "avocado", colorMain: "#d9e45a", colorTwo: "#9db230"},
+        {name: "pumpkin", colorMain: "#ff9b39", colorTwo: "#e4582c"},
+        {name: "navy", colorMain: "#394483", colorTwo: "#10163a"},
+        {name: "turquoise", colorMain: "#63ecd3", colorTwo: "#15a1a2"}
         ],
     loadingText: ["Getting things ready...", "Good news everyone! The page has loaded.", "One moment...", "Loading into the Matrix..."],
     randomWordLength: "",
@@ -68,6 +75,8 @@ var game = {
         var randomWord = random.name;
         var colorHex = random.colorMain; 
         var colorHexTwo = random.colorTwo;
+
+        this.colorArray.splice(randomNum, 1);
 
         this.randomWordLength = randomWord.length;
         this.lettersArray = randomWord.split("", this.randomWordLength);
@@ -144,9 +153,16 @@ document.onkeyup = function(e){
             });
 
             if((game.randomWordLength - 1) === visible){
+
                 game.win();
-                var randomNum = Math.round(Math.random()*(game.colorArray.length - 1));
-                setTimeout(function(){game.reset(randomNum);}, 1000); 
+
+                if (game.colorArray.length > 0){
+                    var randomNum = Math.round(Math.random()*(game.colorArray.length - 1));
+                    setTimeout(function(){game.reset(randomNum);}, 1000); 
+                } else{
+                    //write for if someone goes through all options
+                }
+               
             }
     
         } else if (keyIndex < 0 && game.guesses > 0){
