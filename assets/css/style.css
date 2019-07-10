@@ -3,15 +3,21 @@
 }
 
 body{
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Oswald', sans-serif;
     font-size: 16px;
     transition: background-color .5s linear;
     color: rgba(255,255,255, .9);
 
 }
 
-h1, h2, h3, h4, h5, h6{
+h1, h2, h3, h4, h5, h6, .label{
     font-family: 'Oswald', sans-serif;
+}
+
+.label{
+    font-weight: bold;
+
+    letter-spacing: 1px;
 }
 
 #container{
@@ -65,8 +71,6 @@ h1{
     /* text-shadow: 2px 4px 6px rgba(0,0,0,0.15); */
 }
 
-
-
 #loaderWrapper{
     background: #8e9eab;  /* fallback for old browsers */
     background: -webkit-linear-gradient(45deg, #ECE9E6, #fff);  /* Chrome 10-25, Safari 5.1-6 */
@@ -109,6 +113,7 @@ h1{
 
 #grid{
     display: grid;
+    grid-template-columns: 1fr 1fr;
     grid-template-areas: 
         "guesses wins"
         "guessed guessed";

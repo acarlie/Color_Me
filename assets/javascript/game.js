@@ -5,6 +5,9 @@ var game = {
     guessCont: document.getElementById('guesses'),
     winCont: document.getElementById('wins'),
     wrong: document.getElementById('wrong'),
+    guessWrap: document.getElementById('guesses-cont'),
+    winsWrap: document.getElementById('wins-cont'),
+    wrongWrap: document.getElementById('wrong-cont'),
     headingText: document.getElementById('heading'),
     wordSpan: document.getElementById('letters'),
     loadWrap: document.getElementById('loaderWrapper'),
@@ -64,9 +67,19 @@ var game = {
             letterBox.appendChild(letterSpan);
         }
     },
-    styles(colorOne, colorTwo, colorThree){
+    colorChange(color, change){
+        var oldColorRGB = color.split(",");
+        var newColorRGB = [];
+        oldColorRGB.forEach(function(i){
+            newColorRGB.push(Math.round(parseInt(i)*change));
+        });
+
+        return 'rgb(' + newColorRGB.toString() + ')';
+    },
+    styles(colorOne, colorTwo, colorThree, colorFour){
         this.body.style.background = 'linear-gradient(to right,' + colorOne + ',' + colorTwo + ')';
-        this.grid.style.boxShadow = '1px 3px 16px ' + colorTwo + ' inset, -2px -2px 8px rgba(255,255,255,.1), 2px 2px 2px rgba(255,255,255,.1) ';
+        this.grid.style.boxShadow = '1px 3px 16px ' + colorTwo + ' inset, -2px -2px 8px ' + colorOne + ', 2px 1px 2px ' + colorOne;
+        this.grid.style.color = colorFour;
         this.headingText.style.textShadow = '2px 4px 6px ' + colorTwo;
         this.grid.style.backgroundColor = colorThree;
     },
@@ -75,7 +88,8 @@ var game = {
         var randomWord = random.name;
         var colorHex = "#" + random.colorMain; 
         var colorHexTwo = "rgb(" + random.colorTwo + ")";
-        var colorHexTwoLight = "rgba(" + random.colorTwo + ", .25)";
+        var colorHexTwoTrans = "rgba(" + random.colorTwo + ", .25)";
+        var colorHexTwoDark = this.colorChange(random.colorTwo, .6);
 
         this.colorArray.splice(randomNum, 1);
 
@@ -83,7 +97,7 @@ var game = {
         this.lettersArray = randomWord.split("", this.randomWordLength);
         
         this.letterBoxes(this.randomWordLength, this.lettersArray);
-        this.styles(colorHex, colorHexTwo, colorHexTwoLight);
+        this.styles(colorHex, colorHexTwo, colorHexTwoTrans, colorHexTwoDark);
     },
     reset(randomNum){
         this.guesses = 10;
