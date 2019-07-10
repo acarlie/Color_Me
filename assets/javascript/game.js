@@ -6,6 +6,9 @@ var game = {
     winCont: document.getElementById('wins'),
     wrong: document.getElementById('wrong'),
     headingText: document.getElementById('heading'),
+    wordSpan: document.getElementById('letters'),
+    loadWrap: document.getElementById('loaderWrapper'),
+    loadText: document.getElementById('loadText'),
     guesses: 10,
     wins: 0,
     //turn into nested object
@@ -21,10 +24,7 @@ var game = {
         {name: "peach", colorMain: "#FFC371", colorTwo: "#FF5F6D"},
         {name: "violet", colorMain: "#4776E6", colorTwo: "#8E54E9"}
         ],
-
-    random: "",
-    randomWord: "",
-    colorLength: "",
+    loadingText: ["Getting things ready...", "Good news everyone! The page has loaded.", "One moment...", "Loading into the Matrix..."],
     randomWordLength: "",
     lettersArray: "",
     wrongLettersArray: [],
@@ -37,6 +37,10 @@ var game = {
         var newSound = new Audio(sound);
         newSound.volume = volume;
         newSound.play();
+    },
+    randomLoadText(){
+        var random = Math.round(Math.random()*(game.loadingText.length - 1));
+        this.loadText.innerHTML = this.loadingText[random];
     },
     letterBoxes(randomWordLength, lettersArray){
 
@@ -60,14 +64,13 @@ var game = {
         this.headingText.style.textShadow = '2px 4px 6px ' + colorTwo;
     },
     generator(randomNum){
-        this.random = this.colorArray[randomNum];
-        this.randomWord = this.random.name;
-        var colorHex = this.random.colorMain; 
-        var colorHexTwo = this.random.colorTwo;
+        var random = this.colorArray[randomNum];
+        var randomWord = random.name;
+        var colorHex = random.colorMain; 
+        var colorHexTwo = random.colorTwo;
 
-        this.colorLength = this.colorArray.length;
-        this.randomWordLength = this.randomWord.length;
-        this.lettersArray = this.randomWord.split("", this.randomWordLength);
+        this.randomWordLength = randomWord.length;
+        this.lettersArray = randomWord.split("", this.randomWordLength);
         
         this.letterBoxes(this.randomWordLength, this.lettersArray);
         this.bgColor(colorHex, colorHexTwo);
@@ -109,10 +112,12 @@ var game = {
     
 }
 
+game.randomLoadText();
 
 window.onload = function(){
-    var randomNum = Math.round(Math.random()*(game.colorLength - 1));
+    var randomNum = Math.round(Math.random()*(game.colorArray.length - 1));
     game.reset(randomNum);
+    game.loadWrap.className = 'loaded';
 }
 
 var keyCount = 0;
@@ -140,7 +145,7 @@ document.onkeyup = function(e){
 
             if((game.randomWordLength - 1) === visible){
                 game.win();
-                var randomNum = Math.round(Math.random()*(game.colorLength - 1));
+                var randomNum = Math.round(Math.random()*(game.colorArray.length - 1));
                 setTimeout(function(){game.reset(randomNum);}, 1000); 
             }
     
@@ -150,7 +155,7 @@ document.onkeyup = function(e){
         } else if (game.guesses === 0){
             game.lose();
 
-            var randomNum = Math.round(Math.random()*(game.colorLength - 1));
+            var randomNum = Math.round(Math.random()*(game.colorArray.length - 1));
             setTimeout(function(){game.reset(randomNum);}, 5000);
     
         } 

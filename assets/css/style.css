@@ -44,10 +44,40 @@ span.letterBox{
 
 h1{
     font-size: 5em;
+    line-height: 2em;
     font-weight: 400;
+}
+
+h1.load{
+    background-color: #666666;
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    height: 100vh;
+    line-height: 80vh;
+    text-shadow: rgba(255,255,255,0.5) 0px 2px 2px;
 }
 
 #heading{
     color: rgba(255,255,255, .9);
     /* text-shadow: 2px 4px 6px rgba(0,0,0,0.15); */
+}
+
+#loaderWrapper{
+    background: #8e9eab;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(45deg, #ECE9E6, #fff);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(45deg, #ECE9E6, #fff); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    z-index: 1000;
+    transition: all 2.5s ease;
+    overflow: hidden;
+}
+
+#loaderWrapper.loaded{
+    height: 0;
 }

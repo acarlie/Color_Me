@@ -11,7 +11,11 @@
 </head>
 <body>
     <main id="container">
-        <h1 id="heading">Color Me ________.</h1>
+        <div id="loaderWrapper">
+            <h1 id="loadText" class="load">Loading</h1>
+        </div>
+
+        <h1 id="heading">Color Me <span id="letters"></span>.</h1>
         <h4>Press Any Key To Start</h4>
         <p>Guesses Remaining: <span id="guesses"></span> | Wins: <span id="wins"></span></p>
 
@@ -20,6 +24,7 @@
         </div>   
 
         <p>Guesses: <span id="wrong"></span></p>
+        
     </main>
 </body>
 <script type="text/javascript" src="assets/javascript/game.js"></script>
