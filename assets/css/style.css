@@ -6,10 +6,11 @@ body{
     font-family: 'Roboto', sans-serif;
     font-size: 16px;
     text-align: center;
+    transition: background-color .5s linear;
 }
 
 h1, h2, h3, h4, h5, h6{
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Oswald', sans-serif;
 }
 
 #container{
@@ -27,7 +28,7 @@ span.letterBox{
 }
 
 .letter{
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Oswald', sans-serif;
     font-size: 2em;
     font-weight: 300;
     visibility: hidden;
@@ -38,4 +39,15 @@ span.letterBox{
 .letter.visible{
     visibility: visible;
     opacity: 1;
+}
+
+
+h1{
+    font-size: 5em;
+    font-weight: 400;
+}
+
+#heading{
+    color: rgba(255,255,255, .9);
+    /* text-shadow: 2px 4px 6px rgba(0,0,0,0.15); */
 }
