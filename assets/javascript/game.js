@@ -19,7 +19,7 @@ var game = {
     gamePlay: true,
     colorArray: [
         {name: "seafoam", colorMain: "BDFFF3", colorTwo: "74,194,154"}, 
-        {name: "magenta", colorMain: "f953c6", colorTwo: "185,29,115"}
+        {name: "magenta", colorMain: "f953c6", colorTwo: "185,29,115"},
         {name: "lavender", colorMain: "e1ceff", colorTwo: "210,119,200"},
         {name: "aqua", colorMain: "A6FFCB", colorTwo: "18,216,250"}, 
         {name: "purple", colorMain: "E100FF", colorTwo: "127,0,255"}, 
