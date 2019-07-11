@@ -110,11 +110,11 @@ strong{
     height: 100vh;
 }
 
-span.letterBox{
+span.letter{
     display: inline-block;
 }
 
-.letterBox:first-child .letter{
+.letter:first-child{
     text-transform: capitalize;
 }
 
