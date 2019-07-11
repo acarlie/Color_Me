@@ -19,6 +19,12 @@ h1{
     line-height: 2em;
 }
 
+h3{
+    font-weight: bold;
+    font-size: 1.5em;
+    line-height: 1.5em;
+}
+
 #heading{
     color: rgba(255,255,255, .9);
     letter-spacing: 3px;
@@ -35,12 +41,13 @@ h1{
     text-align: center;
 }
 
+
 strong{
     font-weight: bold;
 }
 
-.outcome p{
-    color: #444;
+#finalWrapper p, #finalWrapper h3{
+    color: #666;
     padding: 1em;
 }
 
@@ -50,8 +57,8 @@ strong{
 
 .outcome{
     width: 100%;
-    box-shadow: 1px 3px 16px #bbb inset, -2px -2px 8px #fff, 2px 1px 2px #fff;
-    background-color: #ddd;
+    box-shadow: 1px 3px 12px #ccc inset, -2px -2px 8px #fff, 2px 1px 2px #fff;
+    background-color: #ededed;
 }
 
 /* covers google fonts load in */

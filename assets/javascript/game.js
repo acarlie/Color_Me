@@ -15,6 +15,8 @@ var game = {
     border: document.querySelectorAll('.border'),
     guesses: 10,
     wins: 0,
+    gameTotalWins: 0,
+    gamePlay: 1,
     colorArray: [
         {name: "seafoam", colorMain: "BDFFF3", colorTwo: "74,194,154"}, 
         {name: "magenta", colorMain: "f953c6", colorTwo: "185,29,115"}, 
@@ -85,9 +87,6 @@ var game = {
         this.border.forEach(function(i){
             i.style.borderTop = '1.5px solid ' + colorTwo;
         });
-        // this.results.forEach(function(i){
-            
-        // });
   
     },
     generator(randomNum){
@@ -126,9 +125,8 @@ var game = {
     },
     lose(totalWins){
         this.finalWrapper.classList = 'fixed-wrap lose';
-        this.finalWrapper.innerHTML = '<div class="container"><div><h1 class="inset">Game Over</h1><div class="outcome"><p><strong>Word was: </strong>' + this.randomWord + '<p><strong>Wins: </strong>' + totalWins + '</p></div></div></div>';
+        this.finalWrapper.innerHTML = '<div class="container"><div><h1 class="inset">Game Over</h1><div class="outcome"><p><strong>Word was: </strong>' + this.randomWord + '<p><strong>Wins: </strong>' + totalWins + '</p></div><h3 class="text-center">Press Any Key to Continue</h3></div></div>';
         this.sound(this.soundLose, .25);
-        console.log('game over');
     },
     wrongGuess(key){
         if (this.wrongLettersArray.indexOf(key) === -1){
@@ -161,7 +159,7 @@ document.onkeydown = function(e){
     var correctGuessesIndex = game.correctLettersArray.indexOf(key);
     var visible = document.querySelectorAll('.visible').length;    
 
-    if (key.match(/[a-z]/)){
+    if (key.match(/[a-z]/) && game.gamePlay === 1){
 
         if (keyIndex > -1 && game.guesses > 0 && correctGuessesIndex === -1){
 
@@ -196,13 +194,27 @@ document.onkeydown = function(e){
 
         } else if (game.guesses === 0){
             game.lose(game.wins);
-
+            game.gamePlay = 2;
             // var randomNum = Math.round(Math.random()*(game.colorArray.length - 1));
             // setTimeout(function(){game.reset(randomNum);}, 5000);
     
         } 
 
-    } 
+    } else if (game.gamePlay === 2){
+
+        var randomNum = Math.round(Math.random()*(game.colorArray.length - 1));
+        setTimeout(function(){
+            game.reset(randomNum);
+            game.finalWrapper.classList = "fixed-wrap";
+            game.gamePlay = 1;
+            game.wins = 0;
+            game.winCont.innerHTML = game.wins;
+
+        }, 500)
+       
+        
+
+    }
 
 }
 
