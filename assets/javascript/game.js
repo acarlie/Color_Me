@@ -16,10 +16,10 @@ var game = {
     guesses: 10,
     wins: 0,
     gameTotalWins: 0,
-    gamePlay: 1,
+    gamePlay: true,
     colorArray: [
         {name: "seafoam", colorMain: "BDFFF3", colorTwo: "74,194,154"}, 
-        {name: "magenta", colorMain: "f953c6", colorTwo: "185,29,115"}, 
+        {name: "magenta", colorMain: "f953c6", colorTwo: "185,29,115"}
         {name: "lavender", colorMain: "e1ceff", colorTwo: "210,119,200"},
         {name: "aqua", colorMain: "A6FFCB", colorTwo: "18,216,250"}, 
         {name: "purple", colorMain: "E100FF", colorTwo: "127,0,255"}, 
@@ -33,9 +33,9 @@ var game = {
         {name: "rose", colorMain: "ffaddd", colorTwo: "255,110,139"},
         {name: "avocado", colorMain: "d9e45a", colorTwo: "157,178,48"},
         {name: "orange", colorMain: "ff9b39", colorTwo: "228,88,44"},
-        {name: "navy", colorMain: "394483", colorTwo: "16,22,58"},
         {name: "turquoise", colorMain: "63ecd3", colorTwo: "21,161,162"}
         ],
+    colorArrayCopy: [],
     loadingText: ["Getting things ready...", "Loading into the Matrix...", "Good news everyone! The page has loaded.", "Firing up the hyperdrive...", "One moment..."],
     randomWord: "",
     randomWordLength: "",
@@ -121,6 +121,9 @@ var game = {
         this.winCont.innerHTML = this.wins;
     },
     finalWin(){
+        this.wins += 1;
+        this.finalWrapper.classList = 'fixed-wrap win';
+        this.finalWrapper.innerHTML = '<div class="container"><div><h1 class="inset">Success!</h1><div class="outcome"><p><strong>Wins: </strong>' + this.wins + '</p></div><h3 class="text-center">Press Any Key to Continue</h3></div></div>';
 
     },
     lose(totalWins){
@@ -146,6 +149,7 @@ var game = {
 game.randomLoadText();
 
 window.onload = function(){
+    game.colorArrayCopy = game.colorArray.slice();
     var randomNum = Math.round(Math.random()*(game.colorArray.length - 1));
     game.reset(randomNum);
     game.loadWrap.className = 'fixed-wrap loaded';
@@ -159,7 +163,7 @@ document.onkeydown = function(e){
     var correctGuessesIndex = game.correctLettersArray.indexOf(key);
     var visible = document.querySelectorAll('.visible').length;    
 
-    if (key.match(/[a-z]/) && game.gamePlay === 1){
+    if (key.match(/[a-z]/) && game.gamePlay){
 
         if (keyIndex > -1 && game.guesses > 0 && correctGuessesIndex === -1){
 
@@ -183,10 +187,9 @@ document.onkeydown = function(e){
                     var randomNum = Math.round(Math.random()*(game.colorArray.length - 1));
                     setTimeout(function(){game.reset(randomNum);}, 1000); 
                 } else{
-
-                    //write for if someone goes through all options
-                }
-               
+                    game.finalWin();
+                    game.gamePlay = false;
+                } 
             }
     
         } else if (keyIndex < 0 && game.guesses > 0){
@@ -194,26 +197,20 @@ document.onkeydown = function(e){
 
         } else if (game.guesses === 0){
             game.lose(game.wins);
-            game.gamePlay = 2;
-            // var randomNum = Math.round(Math.random()*(game.colorArray.length - 1));
-            // setTimeout(function(){game.reset(randomNum);}, 5000);
+            game.gamePlay = false;
     
         } 
 
-    } else if (game.gamePlay === 2){
-
+    } else if (!game.gamePlay){
+        game.colorArray = game.colorArrayCopy.slice();
         var randomNum = Math.round(Math.random()*(game.colorArray.length - 1));
         setTimeout(function(){
             game.reset(randomNum);
             game.finalWrapper.classList = "fixed-wrap";
-            game.gamePlay = 1;
+            game.gamePlay = true;
             game.wins = 0;
             game.winCont.innerHTML = game.wins;
-
-        }, 500)
-       
-        
-
+        }, 500);
     }
 
 }
