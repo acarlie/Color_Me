@@ -10,23 +10,25 @@
     <title>Color Me</title>
 </head>
 <body>
-    <main id="container" class="flex">
+    <div id="loaderWrapper" class="fixed-wrap">
+        <div class="container-fullwidth">
+            <h1 id="loadText" class="inset">Loading</h1>
+        </div>           
+    </div>
+
+    <div id="finalWrapper" class="fixed-wrap">
+
+    </div>
+    <main class="container">
         <div>
-                <div id="loaderWrapper">
-                    <h1 id="loadText" class="inset">Loading</h1>
-                </div>
-        
-                <div id="finalWrapper">
-        
-                </div>
-            
                 <h1 id="heading">Color Me <span id="gameContainer"></span>.</h1>
             
         
                 
-                <div id="grid">
-                    <p id="guesses-cont"><span class="label">Guesses Remaining: </span><span id="guesses"></span></p><p id="wins-cont"><span class="label">Wins: </span><span id="wins"></span></p>
-                    <p id="wrong-cont"><span class="label">Guesses: </span><span id="wrong"></span></p>
+                <div id="results">
+                    <p class="results"><strong>Guesses Remaining: </strong><span id="guesses"></span></p>
+                    <p class="results border"><strong>Wins: </strong><span id="wins">0</span></p>
+                    <p class="results border"><strong>Guesses: </strong><span id="wrong"></span></p>
                 </div>
         </div>
     </main>

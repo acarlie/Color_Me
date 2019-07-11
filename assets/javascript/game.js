@@ -5,15 +5,14 @@ var game = {
     guessCont: document.getElementById('guesses'),
     winCont: document.getElementById('wins'),
     wrong: document.getElementById('wrong'),
-    guessWrap: document.getElementById('guesses-cont'),
-    winsWrap: document.getElementById('wins-cont'),
-    wrongWrap: document.getElementById('wrong-cont'),
     headingText: document.getElementById('heading'),
     wordSpan: document.getElementById('letters'),
     loadWrap: document.getElementById('loaderWrapper'),
     loadText: document.getElementById('loadText'),
     finalWrapper: document.getElementById('finalWrapper'),
-    grid: document.getElementById('grid'),
+    resultsCont: document.getElementById('results'),
+    results: document.querySelectorAll('.results'),
+    border: document.querySelectorAll('.border'),
     guesses: 10,
     wins: 0,
     colorArray: [
@@ -31,11 +30,12 @@ var game = {
         {name: "bubblegum", colorMain: "ff8ed0", colorTwo:"228,90,203"},
         {name: "rose", colorMain: "ffaddd", colorTwo: "255,110,139"},
         {name: "avocado", colorMain: "d9e45a", colorTwo: "157,178,48"},
-        {name: "pumpkin", colorMain: "ff9b39", colorTwo: "228,88,44"},
+        {name: "orange", colorMain: "ff9b39", colorTwo: "228,88,44"},
         {name: "navy", colorMain: "394483", colorTwo: "16,22,58"},
         {name: "turquoise", colorMain: "63ecd3", colorTwo: "21,161,162"}
         ],
     loadingText: ["Getting things ready...", "Loading into the Matrix...", "Good news everyone! The page has loaded.", "Firing up the hyperdrive...", "One moment..."],
+    randomWord: "",
     randomWordLength: "",
     lettersArray: "",
     wrongLettersArray: [],
@@ -78,14 +78,22 @@ var game = {
     },
     styles(colorOne, colorTwo, colorThree, colorFour){
         this.body.style.background = 'linear-gradient(to right,' + colorOne + ',' + colorTwo + ')';
-        this.grid.style.boxShadow = '1px 3px 16px ' + colorTwo + ' inset, -2px -2px 8px ' + colorOne + ', 2px 1px 2px ' + colorOne;
-        this.grid.style.color = colorFour;
+        this.resultsCont.style.boxShadow = '1px 3px 16px ' + colorTwo + ' inset, -2px -2px 8px ' + colorOne + ', 2px 1px 2px ' + colorOne;
+        this.resultsCont.style.color = colorFour;
         this.headingText.style.textShadow = '2px 4px 6px ' + colorTwo;
-        this.grid.style.backgroundColor = colorThree;
+        this.resultsCont.style.backgroundColor = colorThree;
+        this.border.forEach(function(i){
+            i.style.borderTop = '1.5px solid ' + colorTwo;
+        });
+        // this.results.forEach(function(i){
+            
+        // });
+  
     },
     generator(randomNum){
         var random = this.colorArray[randomNum];
         var randomWord = random.name;
+        this.randomWord = randomWord;
         var colorHex = "#" + random.colorMain; 
         var colorHexTwo = "rgb(" + random.colorTwo + ")";
         var colorHexTwoTrans = "rgba(" + random.colorTwo + ", .25)";
@@ -111,14 +119,14 @@ var game = {
     },
     win(){
         this.wins += 1;
-        this.sound(this.soundWin, .25);
-        console.log('you have ' + this.wins + " wins!");
         this.winCont.innerHTML = this.wins;
     },
-    lose(){
-        this.finalWrapper.classList = "lose";
-        this.finalWrapper.innerHTML = '<h1 class="inset">Game Over</h1>';
-        console.log()
+    finalWin(){
+
+    },
+    lose(totalWins){
+        this.finalWrapper.classList = 'fixed-wrap lose';
+        this.finalWrapper.innerHTML = '<div class="container"><div><h1 class="inset">Game Over</h1><div class="outcome"><p><strong>Word was: </strong>' + this.randomWord + '<p><strong>Wins: </strong>' + totalWins + '</p></div></div></div>';
         this.sound(this.soundLose, .25);
         console.log('game over');
     },
@@ -142,7 +150,7 @@ game.randomLoadText();
 window.onload = function(){
     var randomNum = Math.round(Math.random()*(game.colorArray.length - 1));
     game.reset(randomNum);
-    game.loadWrap.className = 'loaded';
+    game.loadWrap.className = 'fixed-wrap loaded';
     game.loadText.classList = "fadeIn inset";
 }
 
@@ -170,7 +178,8 @@ document.onkeydown = function(e){
 
             if((game.randomWordLength - 1) === visible){
 
-                game.win();
+                game.sound(game.soundWin, .25);
+                setTimeout(function(){game.win();}, 1000);
 
                 if (game.colorArray.length > 0){
                     var randomNum = Math.round(Math.random()*(game.colorArray.length - 1));
@@ -186,10 +195,10 @@ document.onkeydown = function(e){
             game.wrongGuess(key);
 
         } else if (game.guesses === 0){
-            game.lose();
+            game.lose(game.wins);
 
-            var randomNum = Math.round(Math.random()*(game.colorArray.length - 1));
-            setTimeout(function(){game.reset(randomNum);}, 5000);
+            // var randomNum = Math.round(Math.random()*(game.colorArray.length - 1));
+            // setTimeout(function(){game.reset(randomNum);}, 5000);
     
         } 
 
