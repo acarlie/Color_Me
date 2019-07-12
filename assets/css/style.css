@@ -5,10 +5,10 @@
 body{
     font-family: 'Oswald', sans-serif;
     font-size: 18px;
-    transition: background-color .5s linear;
+    transition: background-color 1s linear;
+    /*transition not working....*/
     color: rgba(255,255,255, .9);
     letter-spacing: 1px;
-
 }
 
 /*Text*/
