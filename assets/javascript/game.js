@@ -45,8 +45,9 @@ var game = {
         {name: "sky", colorMain: "13eeff", colorTwo: "122,167,255"},
         {name: "chartreuse", colorMain: "ffef5f", colorTwo: "170,194,52"},
         {name: "storm", colorMain: "bebebe", colorTwo: "62,88,124"},
-        {name: "melon", colorMain: "baffd8", colorTwo: "0,255,165"},
-        {name: "cherry", colorMain: "#ef473a", colorTwo: "203,45,62"}
+        {name: "melon", colorMain: "baffd8", colorTwo: "12,207,138"},
+        {name: "cherry", colorMain: "ef473a", colorTwo: "203,45,62"},
+        {name: "ultramarine", colorMain: "2e86ff", colorTwo: "31,18,218"}
         ],
     colorArrayCopy: [],
     loadingText: ["Getting things ready...", "Loading into the Matrix...", "Good news everyone! The page has loaded.", "Firing up the hyperdrive...", "One moment..."],
