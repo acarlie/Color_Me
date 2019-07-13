@@ -25,6 +25,10 @@ h3{
     line-height: 1.5em;
 }
 
+.text-center{
+    text-align: center;
+}
+
 #heading{
     color: rgba(255,255,255, .9);
     letter-spacing: 3px;
@@ -132,6 +136,25 @@ span.letter{
 #wrong{
     text-transform: uppercase;
 }
+
+#results{
+    position: relative;
+}
+
+#initMessage{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.hide{
+    opacity: 0;
+    visibility: hidden;
+}
+
 
 @media only screen and (min-width: 768px){
     .container{

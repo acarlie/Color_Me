@@ -11,6 +11,8 @@ var game = {
     loadText: document.getElementById('loadText'),
     finalWrapper: document.getElementById('finalWrapper'),
     resultsCont: document.getElementById('results'),
+    resultsWrap: document.getElementById('resultWrap'),
+    initMessage: document.getElementById('initMessage'),
     border: document.querySelectorAll('.border'),
     soundCorrect: 'assets/sounds/positive.mp3',
     soundWrong: 'assets/sounds/negative.mp3',
@@ -18,7 +20,8 @@ var game = {
     soundLose: 'assets/sounds/lose.mp3',
     guesses: 10,
     wins: 0,
-    gamePlay: true,
+    gamePlay: false,
+    init: true,
     randomWord: "",
     randomWordLength: "",
     lettersArray: "",
@@ -185,7 +188,7 @@ document.onkeydown = function(e){
     //correct
     var correct = document.querySelectorAll('.correct').length;    
 
-    if (key.match(/[a-z]/) && game.gamePlay){
+    if (key.match(/[a-z]/) && game.gamePlay && !game.init){
 
         if (keyIndex > -1 && game.guesses > 0 && correctGuessesIndex === -1){
 
@@ -228,7 +231,7 @@ document.onkeydown = function(e){
             game.gamePlay = false;
         } 
 
-    } else if (!game.gamePlay){
+    } else if (!game.gamePlay && !game.init){
         //full game reset
         game.colorArray = game.colorArrayCopy.slice();
         var randomNum = Math.round(Math.random()*(game.colorArray.length - 1));
@@ -239,6 +242,11 @@ document.onkeydown = function(e){
             game.wins = 0;
             game.winCont.innerHTML = game.wins;
         }, 500);
+    } else if(game.init && !game.gamePlay){
+        game.gamePlay = true;
+        game.init = false;
+        game.resultsWrap.classList = " ";
+        game.initMessage.classList = "hide results text-center";
     }
 
 }
