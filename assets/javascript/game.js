@@ -54,6 +54,18 @@ var game = {
         ],
     colorArrayCopy: [],
     loadingText: ["Getting things ready...", "Loading into the Matrix...", "Good news everyone! The page has loaded.", "Firing up the hyperdrive...", "One moment..."],
+    init(randomNum){
+        this.colorArrayCopy = game.colorArray.slice();
+        this.reset(randomNum);
+        this.loadWrap.className = 'fixed-wrap loaded';
+        this.loadText.classList = "fadeIn inset";
+    },
+    start(){
+        this.gamePlay = true;
+        this.init = false;
+        this.resultsWrap.classList = " ";
+        this.initMessage.classList = "hide results text-center";
+    },
     sound(sound, volume){
         var newSound = new Audio(sound);
         newSound.volume = volume;
@@ -133,6 +145,16 @@ var game = {
         //generate new
         this.generator(randomNum);
     },
+    resetFromLoss(randomNum){
+        game.colorArray = game.colorArrayCopy.slice();
+        setTimeout(function(){
+            game.reset(randomNum);
+            game.finalWrapper.classList = "fixed-wrap";
+            game.gamePlay = true;
+            game.wins = 0;
+            game.winCont.innerHTML = game.wins;
+        }, 500);
+    },
     win(){
         this.wins += 1;
         this.winCont.innerHTML = this.wins;
@@ -164,16 +186,8 @@ var game = {
 game.randomLoadText();
 
 window.onload = function(){
-    //make copy of Array, for future reset
-    game.colorArrayCopy = game.colorArray.slice();
-
-    //random gen
     var randomNum = Math.round(Math.random()*(game.colorArray.length - 1));
-    game.reset(randomNum);
-
-    //loaders
-    game.loadWrap.className = 'fixed-wrap loaded';
-    game.loadText.classList = "fadeIn inset";
+    game.init(randomNum);
 }
 
 document.onkeydown = function(e){
@@ -214,6 +228,7 @@ document.onkeydown = function(e){
                     //next word
                     var randomNum = Math.round(Math.random()*(game.colorArray.length - 1));
                     setTimeout(function(){game.reset(randomNum);}, 1000); 
+
                 } else{
                     //all words used, game won
                     game.finalWin();
@@ -233,20 +248,13 @@ document.onkeydown = function(e){
 
     } else if (!game.gamePlay && !game.init){
         //full game reset
-        game.colorArray = game.colorArrayCopy.slice();
+        
         var randomNum = Math.round(Math.random()*(game.colorArray.length - 1));
-        setTimeout(function(){
-            game.reset(randomNum);
-            game.finalWrapper.classList = "fixed-wrap";
-            game.gamePlay = true;
-            game.wins = 0;
-            game.winCont.innerHTML = game.wins;
-        }, 500);
+        game.resetFromLoss(randomNum);
+  
+
     } else if(game.init && !game.gamePlay){
-        game.gamePlay = true;
-        game.init = false;
-        game.resultsWrap.classList = " ";
-        game.initMessage.classList = "hide results text-center";
+        game.start();
     }
 
 }
