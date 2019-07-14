@@ -7,6 +7,7 @@ var game = {
     wrong: document.getElementById('wrong'),
     headingText: document.getElementById('heading'),
     wordSpan: document.getElementById('letters'),
+    dataLetters: document.querySelectorAll('[data-letter]'),
     loadWrap: document.getElementById('loaderWrapper'),
     loadText: document.getElementById('loadText'),
     finalWrapper: document.getElementById('finalWrapper'),
@@ -157,7 +158,8 @@ var game = {
         }, 500);
     },
     win(){
-  
+        this.wins++;
+        this.winCont.innerHTML = this.wins;
     },
     finalScreen(classList, heading, additionalHTML){
         this.finalWrapper.classList = 'fixed-wrap ' + classList;
@@ -182,9 +184,11 @@ var game = {
             this.wrongLettersArray.push(key);
         } 
     },
-    correctGuess(){
-
-    }
+    correctGuess(dataLetter, key, item){
+        item.innerHTML = dataLetter;
+        item.className = "letter correct";
+        this.correctLettersArray.push(key);
+    },
 }
 
 game.randomLoadText();
@@ -213,27 +217,28 @@ document.onkeydown = function(e){
 
         if (game.indexOfKey > -1 && game.guesses > 0 && correctGuessesIndex === -1){
 
-            //guess is correct
-            game.sound(game.soundCorrect, .025);
+                game.sound(game.soundCorrect, .025);
             
-            document.querySelectorAll('[data-letter]').forEach(function(item){
+                document.querySelectorAll('[data-letter]').forEach(function(item){
 
-                var dataLetter = item.getAttribute("data-letter");
-                if(key === dataLetter && game.indexOfKey > -1){
-                    item.innerHTML = dataLetter;
-                    item.className = "letter correct";
-                    game.correctLettersArray.push(key);
-                } 
+                    var dataLetter = item.getAttribute("data-letter");
 
-            });
+                    if(key === dataLetter && game.indexOfKey > -1){
+
+                        game.correctGuess(dataLetter, key, item);
+
+                    } 
+
+                });
 
             //word completed
             if((game.randomWordLength - 1) === correct){
 
                 game.sound(game.soundWin, .25);
                 setTimeout(function(){
-                    game.wins++;
-                    game.winCont.innerHTML = game.wins;
+                    
+                    game.win();
+              
                 }, 1000);
 
                 if (game.colorArray.length > 0){
@@ -255,11 +260,11 @@ document.onkeydown = function(e){
             game.lose();
         } 
 
-    } else if (!game.gamePlay && !game.init){
+    } else if (!game.init && !game.gamePlay){
         //reset from loss
         game.resetFromLoss(randomNum);
 
-    } else if(game.init && !game.gamePlay){
+    } else if (game.init && !game.gamePlay){
         //press any key to start
         game.start();
     }
