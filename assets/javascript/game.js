@@ -25,10 +25,12 @@ var game = {
     init: true,
     randomWord: "",
     randomWordLength: "",
-    indexOfKey: "",
     lettersArray: "",
     wrongLettersArray: [],
     correctLettersArray: [],
+    indexOfKey: "",
+    indexOfWrong: "",
+    indexOfCorrect: "",
     colorArray: [
         {name: "seafoam", colorMain: "BDFFF3", colorTwo: "74,194,154"},
         {name: "magenta", colorMain: "f953c6", colorTwo: "185,29,115"},
@@ -49,7 +51,7 @@ var game = {
         {name: "gold", colorMain: "ffdf7a", colorTwo: "255,162,27"},
         {name: "sky", colorMain: "13eeff", colorTwo: "122,167,255"},
         {name: "chartreuse", colorMain: "ffef5f", colorTwo: "170,194,52"},
-        {name: "storm", colorMain: "bebebe", colorTwo: "62,88,124"},
+        {name: "slate", colorMain: "bebebe", colorTwo: "62,88,124"},
         {name: "melon", colorMain: "baffd8", colorTwo: "12,207,138"},
         {name: "cherry", colorMain: "ef473a", colorTwo: "203,45,62"},
         {name: "ultramarine", colorMain: "2e86ff", colorTwo: "31,18,218"}
@@ -148,7 +150,7 @@ var game = {
         this.generator(randomNum);
     },
     resetFromLoss(randomNum){
-        game.colorArray = game.colorArrayCopy.slice();
+        this.colorArray = this.colorArrayCopy.slice();
         setTimeout(function(){
             game.reset(randomNum);
             game.finalWrapper.classList = "fixed-wrap";
@@ -176,13 +178,12 @@ var game = {
         this.finalScreen('lose', "Game Over",  '<p><strong>Word was: </strong>' + this.randomWord + '</p>')
     },
     wrongGuess(key){
-        if (this.wrongLettersArray.indexOf(key) === -1){
-            this.sound(this.soundWrong, .25);
-            this.guesses--;
-            this.guessCont.innerHTML = this.guesses;
-            this.wrong.innerHTML += " " + key;
-            this.wrongLettersArray.push(key);
-        } 
+        this.sound(this.soundWrong, .25);
+        this.guesses--;
+        this.guessCont.innerHTML = this.guesses;
+        this.wrong.innerHTML += " " + key;
+        this.wrongLettersArray.push(key);
+
     },
     correctGuess(dataLetter, key, item){
         item.innerHTML = dataLetter;
@@ -205,7 +206,8 @@ document.onkeydown = function(e){
 
     //indexes
     game.indexOfKey = game.lettersArray.indexOf(key);
-    var correctGuessesIndex = game.correctLettersArray.indexOf(key);
+    game.indexOfCorrect = game.correctLettersArray.indexOf(key);
+    game.indexOfWrong = game.wrongLettersArray.indexOf(key);
 
     //correct
     var correct = document.querySelectorAll('.correct').length;    
@@ -215,57 +217,40 @@ document.onkeydown = function(e){
 
     if (key.match(/[a-z]/) && game.gamePlay && !game.init){
 
-        if (game.indexOfKey > -1 && game.guesses > 0 && correctGuessesIndex === -1){
+        if (game.indexOfKey > -1 && game.guesses >= 0 && game.indexOfCorrect === -1){
 
                 game.sound(game.soundCorrect, .025);
             
                 document.querySelectorAll('[data-letter]').forEach(function(item){
-
                     var dataLetter = item.getAttribute("data-letter");
-
                     if(key === dataLetter && game.indexOfKey > -1){
-
                         game.correctGuess(dataLetter, key, item);
-
                     } 
-
                 });
 
-            //word completed
             if((game.randomWordLength - 1) === correct){
 
                 game.sound(game.soundWin, .25);
-                setTimeout(function(){
-                    
-                    game.win();
-              
-                }, 1000);
+                setTimeout(function(){game.win();}, 1000);
 
                 if (game.colorArray.length > 0){
-                    //next word
                     setTimeout(function(){game.reset(randomNum);}, 1000); 
-
                 } else{
-                    //all words used, game won
                     game.finalWin();
                 } 
             }
     
-        } else if (game.indexOfKey < 0 && game.guesses > 0){
-            //incorrect guess
+        } else if (game.indexOfKey < 0 && game.guesses > 0 && game.indexOfWrong === -1){
             game.wrongGuess(key);
 
-        } else if (game.guesses === 0){
-            //lose
+        } else if (game.indexOfKey < 0 && game.guesses === 0){
             game.lose();
         } 
 
     } else if (!game.init && !game.gamePlay){
-        //reset from loss
         game.resetFromLoss(randomNum);
 
     } else if (game.init && !game.gamePlay){
-        //press any key to start
         game.start();
     }
 
