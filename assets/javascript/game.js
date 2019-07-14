@@ -219,7 +219,7 @@ document.onkeydown = function(e){
 
         if (game.indexOfKey > -1 && game.guesses >= 0 && game.indexOfCorrect === -1){
 
-                game.sound(game.soundCorrect, .025);
+                game.sound(game.soundCorrect, .15);
             
                 document.querySelectorAll('[data-letter]').forEach(function(item){
                     var dataLetter = item.getAttribute("data-letter");
