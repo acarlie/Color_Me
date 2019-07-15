@@ -19,7 +19,7 @@ var game = {
     soundWrong: 'assets/sounds/negative.mp3',
     soundWin: 'assets/sounds/word_cleared.mp3',
     soundLose: 'assets/sounds/lose.mp3',
-    guesses: 10,
+    guesses: 8,
     wins: 0,
     gamePlay: false,
     init: true,
@@ -139,7 +139,7 @@ var game = {
     },
     reset(randomNum){
         //reset
-        this.guesses = 10;
+        this.guesses = 8;
         this.guessCont.innerHTML = game.guesses;
         this.container.innerHTML = "";
         this.wrongLettersArray = [];
