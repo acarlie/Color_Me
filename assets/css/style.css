@@ -5,8 +5,6 @@
 body{
     font-family: 'Oswald', sans-serif;
     font-size: 18px;
-    transition: background-color 1s linear;
-    /*transition not working....*/
     color: rgba(255,255,255, .9);
     letter-spacing: 1px;
 }
@@ -45,27 +43,29 @@ h3{
     text-align: center;
 }
 
-
 strong{
     font-weight: bold;
 }
 
-#finalWrapper p, #finalWrapper h3{
-    color: #666;
-    padding: 1em;
+#wrong{
+    text-transform: uppercase;
 }
 
-.outcome p:not(:first-child){
-    border-top: 1px solid #bbb;
+/*Letters*/
+span.letter{
+    display: inline-block;
 }
 
-.outcome{
-    width: 100%;
-    box-shadow: 1px 3px 12px #ccc inset, -2px -2px 8px #fff, 2px 1px 2px #fff;
-    background-color: #ededed;
+.letter:first-child{
+    text-transform: capitalize;
 }
 
-/* covers google fonts load in */
+/*Stats Box*/
+#results{
+    position: relative;
+}
+
+/*Covers google fonts load in*/
 #loadText{
     visibility: hidden;
     transition: visibility 2s ease;
@@ -85,9 +85,9 @@ strong{
 }
 
 .fixed-wrap{
-    background: #8e9eab;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(-45deg, #ddd, #fff);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(-45deg, #ddd, #fff); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: #8e9eab; 
+    background: -webkit-linear-gradient(-45deg, #ddd, #fff);  
+    background: linear-gradient(-45deg, #ddd, #fff); 
     position: fixed;
     left: 0;
     width: 100vw;
@@ -105,21 +105,30 @@ strong{
     height: 0;
 }
 
+/*Win & Lose Screens*/
+
 #finalWrapper{
     bottom: 0;
     height: 0vh;
 }
 
+#finalWrapper p, #finalWrapper h3{
+    color: #666;
+    padding: 1em;
+}
+
+.outcome p:not(:first-child){
+    border-top: 1px solid #bbb;
+}
+
+.outcome{
+    width: 100%;
+    box-shadow: 1px 3px 12px #ccc inset, -2px -2px 8px #fff, 2px 1px 2px #fff;
+    background-color: #ededed;
+}
+
 #finalWrapper.win, #finalWrapper.lose{
     height: 100vh;
-}
-
-span.letter{
-    display: inline-block;
-}
-
-.letter:first-child{
-    text-transform: capitalize;
 }
 
 #results, .outcome{
@@ -130,17 +139,9 @@ span.letter{
 
 #results p, .outcome p{
     padding: 1em;
-
 }
 
-#wrong{
-    text-transform: uppercase;
-}
-
-#results{
-    position: relative;
-}
-
+/*Press any key to get started text*/
 #initMessage{
     position: absolute;
     width: 100%;
