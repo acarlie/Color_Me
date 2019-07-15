@@ -1,7 +1,8 @@
 # Color Me ______.
 Color Me is a word guessing game created by Amelia Carlie.
 
-**How to Play**
+
+### How To Play:
 * Press any key to start.
 * Guess any letter a-z. 
 * Correct guesses will fill in the corresponding blanks.
