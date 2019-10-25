@@ -1,0 +1,23 @@
+{
+  "name": "Word_Guess_Game",
+  "version": "1.0.0",
+  "description": "Color Me is a word guessing game created by Amelia Carlie.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/acarlie/Word_Guess_Game.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/acarlie/Word_Guess_Game/issues"
+  },
+  "homepage": "https://github.com/acarlie/Word_Guess_Game#readme",
+  "devDependencies": {
+    "eslint": "^6.5.1"
+  }
+}
